@@ -1,0 +1,2 @@
+chmod 755 scripts/build.sh
+chmod 755 scripts/in-php.sh
