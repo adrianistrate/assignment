@@ -16,6 +16,8 @@ enum ContactTypeEnum: string
     case YOUTUBE = 'youtube';
     case BLOG = 'blog';
     case TELEGRAM = 'telegram';
+    case EUROPEAN_BLOG = 'european_blog';
+    case GOOGLE_PLUS = 'google_plus';
 
     case ADDRESS = 'address';
 }

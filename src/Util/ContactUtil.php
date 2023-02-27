@@ -27,8 +27,17 @@ class ContactUtil
         $addressRaw = $contactNode->filter(self::CONTACT_CARD_DETAILS_QUERY)->first()->html();
         $address = strip_tags(u($addressRaw)->replace('<br>', " "));
 
-        $phone = u($contactNode->filter(self::CONTACT_PHONE_QUERY)->siblings()->links()[0]->getUri())->replace('tel:', '');
-        $fax = u($contactNode->filter(self::CONTACT_FAX_QUERY)->siblings()->links()[0]->getUri())->replace('tel:', '');
+        $phone = '';
+        $phoneFilter = $contactNode->filter(self::CONTACT_PHONE_QUERY);
+        if($phoneFilter->count()) {
+            $phone = u($phoneFilter->siblings()->links()[0]->getUri())->replace('tel:', '');
+        }
+
+        $fax = '';
+        $faxFilter = $contactNode->filter(self::CONTACT_FAX_QUERY);
+        if($faxFilter->count()) {
+            $fax = u($faxFilter->siblings()->links()[0]->getUri())->replace('tel:', '');
+        }
 
         return u(sprintf('%s: %s %s %s ', $title, $address, $phone, $fax))->replace("\r", "");
     }

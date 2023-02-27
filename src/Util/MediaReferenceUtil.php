@@ -49,6 +49,12 @@ class MediaReferenceUtil
             case 'link_telegram': {
                 return ContactTypeEnum::TELEGRAM;
             }
+            case 'link_europeanblog': {
+                return ContactTypeEnum::EUROPEAN_BLOG;
+            }
+            case 'link_googleplus': {
+                return ContactTypeEnum::GOOGLE_PLUS;
+            }
             default: {
                 throw new \Exception(sprintf('Unknown type "%s"', $rawType));
             }
