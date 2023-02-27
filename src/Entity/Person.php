@@ -2,12 +2,22 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\PersonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PersonRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => ['person:read']]),
+        new GetCollection(normalizationContext: ['groups' => ['person:read:collection']])
+    ]
+)]
 class Person
 {
     #[ORM\Id]
@@ -35,11 +45,13 @@ class Person
         $this->contacts = new ArrayCollection();
     }
 
+    #[Groups(['person:read', 'person:read:collection'])]
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    #[Groups(['person:read', 'person:read:collection'])]
     public function getFirstName(): ?string
     {
         return $this->firstName;
@@ -52,6 +64,7 @@ class Person
         return $this;
     }
 
+    #[Groups(['person:read', 'person:read:collection'])]
     public function getLastName(): ?string
     {
         return $this->lastName;
@@ -64,6 +77,7 @@ class Person
         return $this;
     }
 
+    #[Groups(['person:read', 'person:read:collection'])]
     public function getCountry(): ?string
     {
         return $this->country;
@@ -76,6 +90,7 @@ class Person
         return $this;
     }
 
+    #[Groups(['person:read', 'person:read:collection'])]
     public function getPoliticalGroup(): ?string
     {
         return $this->politicalGroup;
@@ -91,6 +106,7 @@ class Person
     /**
      * @return Collection<int, Contact>
      */
+    #[Groups(['person:read'])]
     public function getContacts(): Collection
     {
         return $this->contacts;

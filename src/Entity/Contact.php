@@ -6,6 +6,7 @@ use App\Entity\Enum\ContactTypeEnum;
 use App\Repository\ContactRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -30,6 +31,7 @@ class Contact
         return $this->id;
     }
 
+    #[Groups(['person:read'])]
     public function getType(): ?ContactTypeEnum
     {
         return $this->type;
@@ -42,6 +44,7 @@ class Contact
         return $this;
     }
 
+    #[Groups(['person:read'])]
     public function getValue(): ?string
     {
         return $this->value;

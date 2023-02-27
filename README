@@ -1,2 +1,5 @@
 chmod 755 scripts/build.sh
 chmod 755 scripts/in-php.sh
+
+symfony console doctrine:database:create
+symfony console doctrine:migrations:migrate --no-interaction
